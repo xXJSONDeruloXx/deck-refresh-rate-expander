@@ -1,6 +1,7 @@
 Extends available steam deck refresh rate options
 
 **Running hardware outside of factory specifications may reduce lifespan and/or cause damage**
+
 I am not responsible if your Steam Deck dies prematurely or any other damage occurs to it.
 
 Be prepared to restore your Steam Deck using a recovery image if installation goes wrong or other problems arise.
