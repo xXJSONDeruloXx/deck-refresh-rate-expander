@@ -10,7 +10,7 @@ Usage/Installation:
 
  1. Enter desktop mode
  2. Download install-rre.sh
- 3. From terminal, run `sudo ./install-rre.sh`
+ 3. From terminal, run `sudo bash install-rre.sh`
  4. Return to Gaming Mode
 
 
