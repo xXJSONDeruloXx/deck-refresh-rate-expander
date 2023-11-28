@@ -25,4 +25,7 @@ Available Refresh Rates:
  - SDC OLED Panel Deck: **Untested** 40-120Hz [**Theoretical Bandwidth Limit is ~100Hz**]
 
 
+If you would like to throw money at me (to, for example, purchase a Steam Deck with a Samsung Panel) you may send Monero to `86Zn9mxjji6JaH9EfRn3Yqg2jVw5YeCQZaZVyCZx1Vd9A9ZjZSY2y26Jrv8nipr8ovDuVACpk59xT4YRj3nUp2C8HKBD9cg`
+
+
 If you are at Valve and would like to incorporate part/all of my changes into gamescope/SteamOS, I would appreciate being contacted first.
