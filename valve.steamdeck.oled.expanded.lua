@@ -1,5 +1,13 @@
--- Steam Deck OLED Test Script - Add 92Hz only
--- Minimal changes from stock to test if extended rates work at all
+-- Steam Deck OLED Refresh Rate Expander
+-- Extends refresh rates beyond stock 90Hz
+--
+-- SDC (Samsung) panels: Up to 96Hz (bandwidth limited)
+-- BOE panels: Up to 120Hz (theoretical, needs testing)
+--
+-- Install to: ~/.config/gamescope/scripts/displays/
+-- Then reboot your Steam Deck
+--
+-- Based on research from Nyaaori's original 120Hz mod
 
 local steamdeck_oled_hdr = {
     supported = true,
@@ -10,24 +18,34 @@ local steamdeck_oled_hdr = {
     min_content_light_level = 0
 }
 
--- Stock rates + 92Hz
-local steamdeck_oled_refresh_rates_test = {
+-- SDC panel: Extended to 96Hz (conservative limit due to bandwidth)
+local sdc_refresh_rates = {
     45, 47, 48, 49,
     50, 51, 53, 55, 56, 59,
     60, 62, 64, 65, 66, 68,
     72, 73, 76, 77, 78,
     80, 81, 82, 84, 85, 86, 87, 88,
-    90, 92  -- Added 92Hz
+    90, 92, 94, 96
 }
 
--- SDC panel with 92Hz test
-gamescope.config.known_displays.steamdeck_oled_sdc_test = {
-    pretty_name = "Steam Deck OLED (SDC) Test",
+-- BOE panel: Extended to 120Hz
+local boe_refresh_rates = {
+    45, 47, 48, 49,
+    50, 51, 53, 55, 56, 59,
+    60, 62, 64, 65, 66, 68,
+    72, 73, 76, 77, 78,
+    80, 81, 82, 84, 85, 86, 87, 88,
+    90, 92, 94, 96, 98,
+    100, 102, 104, 106, 108, 110,
+    112, 114, 116, 118, 120
+}
+
+-- SDC (Samsung) Panel Configuration
+gamescope.config.known_displays.steamdeck_oled_sdc_expanded = {
+    pretty_name = "Steam Deck OLED (SDC) Expanded",
     hdr = steamdeck_oled_hdr,
-    dynamic_refresh_rates = steamdeck_oled_refresh_rates_test,
+    dynamic_refresh_rates = sdc_refresh_rates,
     dynamic_modegen = function(base_mode, refresh)
-        debug("TEST: Generating mode "..refresh.."Hz for Steam Deck OLED (SDC)")
-        
         -- Stock VFP table (45-90Hz)
         local vfps = {
             1321, 1264, 1209, 1157, 1106,
@@ -40,47 +58,38 @@ gamescope.config.known_displays.steamdeck_oled_sdc_test = {
         
         local mode = base_mode
         
-        -- For 92Hz, try using minimum VFP (9) like stock 90Hz
-        -- and let calc_max_clock figure out the clock
-        if refresh == 92 then
-            debug("TEST: Trying 92Hz with VFP=9 and calculated clock")
+        -- Extended rates (>90Hz): Use minimum VFP and scale clock
+        if refresh > 90 then
             gamescope.modegen.adjust_front_porch(mode, 9)
-            mode.clock = gamescope.modegen.calc_max_clock(mode, 92)
-            mode.vrefresh = 92
-            debug("TEST: 92Hz clock="..mode.clock)
+            mode.clock = gamescope.modegen.calc_max_clock(mode, refresh)
+            mode.vrefresh = refresh
             return mode
         end
         
         -- Stock behavior for 45-90Hz
-        local vfp = vfps[refresh - 44]  -- 45Hz = index 1
+        local vfp = vfps[refresh - 44]
         if vfp == nil then
-            warn("TEST: No VFP for "..refresh.."Hz")
             return base_mode
         end
 
         gamescope.modegen.adjust_front_porch(mode, vfp)
         mode.vrefresh = gamescope.modegen.calc_vrefresh(mode)
-
         return mode
     end,
     matches = function(display)
         if display.vendor == "VLV" and display.product == 0x3003 then
-            debug("[steamdeck_oled_sdc_test] Matched SDC panel")
-            return 5200  -- Higher priority than stock
+            return 5200  -- Higher priority than stock (5100)
         end
         return -1
     end
 }
-debug("TEST: Registered Steam Deck OLED (SDC) Test config")
 
--- BOE panel with 92Hz test  
-gamescope.config.known_displays.steamdeck_oled_boe_test = {
-    pretty_name = "Steam Deck OLED (BOE) Test",
+-- BOE Panel Configuration
+gamescope.config.known_displays.steamdeck_oled_boe_expanded = {
+    pretty_name = "Steam Deck OLED (BOE) Expanded",
     hdr = steamdeck_oled_hdr,
-    dynamic_refresh_rates = steamdeck_oled_refresh_rates_test,
+    dynamic_refresh_rates = boe_refresh_rates,
     dynamic_modegen = function(base_mode, refresh)
-        debug("TEST: Generating mode "..refresh.."Hz for Steam Deck OLED (BOE)")
-        
         -- Stock VFP table (45-90Hz)
         local vfps = {
             1320, 1272, 1216, 1156, 1112,
@@ -93,34 +102,28 @@ gamescope.config.known_displays.steamdeck_oled_boe_test = {
         
         local mode = base_mode
         
-        -- For 92Hz, try using minimum VFP (8) and calculated clock
-        if refresh == 92 then
-            debug("TEST: Trying 92Hz with VFP=8 and calculated clock")
+        -- Extended rates (>90Hz): Use minimum VFP and scale clock
+        if refresh > 90 then
             gamescope.modegen.adjust_front_porch(mode, 8)
-            mode.clock = gamescope.modegen.calc_max_clock(mode, 92)
-            mode.vrefresh = 92
-            debug("TEST: 92Hz clock="..mode.clock)
+            mode.clock = gamescope.modegen.calc_max_clock(mode, refresh)
+            mode.vrefresh = refresh
             return mode
         end
         
         -- Stock behavior for 45-90Hz
-        local vfp = vfps[refresh - 44]  -- 45Hz = index 1
+        local vfp = vfps[refresh - 44]
         if vfp == nil then
-            warn("TEST: No VFP for "..refresh.."Hz")
             return base_mode
         end
 
         gamescope.modegen.adjust_front_porch(mode, vfp)
         mode.vrefresh = gamescope.modegen.calc_vrefresh(mode)
-
         return mode
     end,
     matches = function(display)
         if display.vendor == "VLV" and display.product == 0x3004 then
-            debug("[steamdeck_oled_boe_test] Matched BOE panel")
-            return 5200  -- Higher priority than stock
+            return 5200  -- Higher priority than stock (5100)
         end
         return -1
     end
 }
-debug("TEST: Registered Steam Deck OLED (BOE) Test config")
