@@ -28,7 +28,7 @@ local sdc_refresh_rates = {
     90, 92, 94, 96
 }
 
--- BOE panel: Extended to 130Hz (experimental beyond 110Hz)
+-- BOE panel: Extended to 120Hz
 local boe_refresh_rates = {
     45, 47, 48, 49,
     50, 51, 53, 55, 56, 59,
@@ -37,8 +37,7 @@ local boe_refresh_rates = {
     80, 81, 82, 84, 85, 86, 87, 88,
     90, 92, 94, 96, 98,
     100, 102, 104, 106, 108, 110,
-    112, 114, 116, 118, 120,
-    122, 124, 126, 128, 130
+    112, 114, 116, 118, 120
 }
 
 -- SDC (Samsung) Panel Configuration

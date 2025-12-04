@@ -7,7 +7,7 @@ Extends OLED refresh rates beyond stock 90Hz via user Lua scripts. No system mod
 | Panel | Stock | Extended | Notes |
 |-------|-------|----------|-------|
 | SDC (Samsung) | 90Hz | 96Hz | Bandwidth limited (~133MHz at 90Hz) |
-| BOE | 90Hz | 130Hz | Experimental above 110Hz |
+| BOE | 90Hz | 120Hz | Experimental above 110Hz |
 
 ## Install
 
