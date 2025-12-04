@@ -96,9 +96,6 @@ case "$choice" in
         echo ""
         echo "Please REBOOT your Steam Deck for changes to take effect."
         echo ""
-        echo "After reboot:"
-        echo "  1. Go to Settings > Display"
-        echo "  2. You should see new refresh rate options"
         if [[ "$PANEL" == "SDC" ]]; then
             echo "  3. Try 92Hz first, then 94Hz, 96Hz"
             echo "     (Stop if you see flickering)"
