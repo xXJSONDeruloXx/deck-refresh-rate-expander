@@ -7,25 +7,22 @@ Extends OLED refresh rates beyond stock 90Hz via user Lua scripts. No system mod
 | Panel | Stock | Extended | Notes |
 |-------|-------|----------|-------|
 | SDC (Samsung) | 90Hz | 96Hz | Bandwidth limited (~133MHz at 90Hz) |
-| BOE | 90Hz | 120Hz | Experimental above 110Hz |
+| BOE | 90Hz | 130Hz | Experimental above 110Hz |
 
 ## Install
 
 ```bash
-git clone https://github.com/xXJSONDeruloXx/deck-refresh-rate-expander
-cd deck-refresh-rate-expander
-./install.sh
+mkdir -p ~/.config/gamescope/scripts/displays
+curl -L https://raw.githubusercontent.com/xXJSONDeruloXx/deck-refresh-rate-expander/main/valve.steamdeck.oled.expanded.lua -o ~/.config/gamescope/scripts/displays/valve.steamdeck.oled.expanded.lua
 # Reboot
 ```
 
 ## Uninstall
 
 ```bash
-./install.sh  # Choose option 2
+rm ~/.config/gamescope/scripts/displays/valve.steamdeck.oled.expanded.lua
 # Reboot
 ```
-
-Or manually: `rm ~/.config/gamescope/scripts/displays/valve.steamdeck.oled.expanded.lua`
 
 ## How It Works
 
