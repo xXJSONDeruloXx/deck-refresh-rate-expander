@@ -1,0 +1,3 @@
+[submodule "gamescope"]
+	path = gamescope
+	url = https://github.com/xXJSONDeruloXx/gamescope.git
