@@ -2,14 +2,6 @@
 
 Extends available refresh rate options for Steam Deck displays.
 
-## Current Status
-
-| Device | Status | Max Refresh |
-|--------|--------|-------------|
-| Steam Deck LCD | ✅ Working | 70Hz |
-| Steam Deck OLED (BOE) | ⚠️ Experimental | Unknown |
-| Steam Deck OLED (SDC) | ❌ Not Working | 90Hz (stock) |
-
 ### LCD (Jupiter)
 - **Working!** Based on Ryan Rudolf's approach
 - Extends refresh rate from 40-60Hz to 40-70Hz
@@ -28,7 +20,7 @@ bash install-rre.sh
 
 Follow the on-screen prompts to install or uninstall.
 
-## ⚠️ WARNING
+## WARNING
 
 **Running hardware outside of factory specifications may reduce lifespan and/or cause damage!**
 
